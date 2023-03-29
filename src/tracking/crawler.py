@@ -5,33 +5,41 @@ from selenium.webdriver.common.by import By
 import os
 from scrapper import Estates_DB
 
-url = 'https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/cala-polska?page=1&limit=72&by=LATEST&direction=DESC'
 
-links = set()
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--window-size=1920x8000")
-chrome_options.add_argument("--headless")
-chrome_driver = os.getcwd() + "\\chromedriver.exe"  # CHANGE THIS IF NOT SAME FOLDER
-driver = webdriver.Chrome(options=chrome_options, executable_path=chrome_driver)
-driver.get(url)
-while True:
-    try:
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        break
-    except:
-        pass
+class WebCrawler:
 
-elems = driver.find_elements(By.XPATH,"//a[@href]")
-for elem in elems:
-    link = elem.get_attribute("href")
-    if link.startswith('https://www.otodom.pl/pl/oferta/'):
-        links.add(link)
+    def __init__(self):
+        self.links = set()
 
-driver.quit()
+    def get_first_url(self):
+        self.url = 'https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/cala-polska?page=1&limit=72&by=LATEST&direction=DESC'
+        self.page_no = 1
 
-with Estates_DB('houses.db') as db:
-    db.create_table()
-    for link in links:
-        response = requests.get(link)
-        soup = BeautifulSoup(response.text, "lxml")
-        db.add_estate(soup, link)
+    def get_next_url(self):
+        self.page_no += 1
+        self.url = f'https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/cala-polska?page={self.page_no}&limit=72&by=LATEST&direction=DESC'
+
+    def make_connection(self):
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless")
+        chrome_driver = os.getcwd() + "\\chromedriver.exe"
+        self.driver = webdriver.Chrome(options=chrome_options, executable_path=chrome_driver)
+        self.driver.get(self.url)
+
+    def scroll_down(self):
+        while True:
+            try:
+                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                break
+            except:
+                pass
+
+    def get_links(self):
+        elems = self.driver.find_elements(By.XPATH, "//a[@href]")
+        for elem in elems:
+            link = elem.get_attribute("href")
+            if link.startswith('https://www.otodom.pl/pl/oferta/'):
+                self.links.add(link)
+
+    def close_connection(self):
+        self.driver.quit()

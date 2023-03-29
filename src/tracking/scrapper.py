@@ -1,5 +1,8 @@
 from transformer import Transformer
 import sqlite3
+import requests
+from bs4 import BeautifulSoup
+
 
 class Estates_DB:
 
@@ -39,61 +42,57 @@ class Estates_DB:
 
         self.con.execute(query)
 
-    def add_estate(self, soup, link):
-        soup_1 = soup.find_all('div', class_='css-1k2qr23 enb64yk0')
-        soup_2 = soup.find_all('div', class_='css-kkaknb enb64yk0')
-        soup_3 = soup.find_all('a', class_='css-1in5nid e19r3rnf1')
+    def create_soup(self, link):
+        response = requests.get(link)
+        self.soup = BeautifulSoup(response.text, "lxml")
+
+    def add_estate(self, link):
+        self.create_soup(link)
+        soup_3 = self.soup.find_all('a', class_='css-1in5nid e19r3rnf1')
         row = []
 
-        for record in soup_1:
-            data = self.tr.clean_soup(record)
-            row.append(data)
-        for record in soup_2:
-            data = self.tr.clean_soup(record)
-            row.append(data)
         for record in soup_3:
             data = record.text.strip()
             row.append(data)
 
-        price = self.tr.price(soup.find('strong', class_='css-1i5yyw0 e1l1avn10'))
-        market = row[0]
-        advertiser = row[1]
-        year_built = self.tr.year_built(row[3])
-        estate_type = row[4]
-        windows = row[5]
-        lift = row[6]
-        utilities = row[7]
-        security = row[8]
-        furnishing = row[9]
-        other_info = row[10]
-        material = row[11]
-        area = self.tr.area(row[12])
-        legal_status = row[13]
-        rooms = self.tr.rooms(row[14])
-        condition = row[15]
-        level = row[16]
-        balcony = row[17]
-        rent = self.tr.rent(row[18])
-        parking = row[19]
-        heating = row[21]
-        province = row[23]
-
+        price = self.tr.price(self.soup.find(attrs={"aria-label": "Cena"}))
+        market = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Rynek"}))
+        advertiser = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Typ ogłoszeniodawcy"}))
+        year_built = self.tr.year_built(self.tr.clean_text(self.soup.find(attrs={"aria-label": "Rok budowy"})))
+        estate_type = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Rodzaj zabudowy"}))
+        windows = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Okna"}))
+        lift = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Winda"}))
+        utilities = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Media"}))
+        security = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Zabezpieczenia"}))
+        furnishing = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Wyposażenie"}))
+        other_info = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Informacje dodatkowe"}))
+        material = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Materiał budynku"}))
+        area = self.tr.area(self.tr.clean_text(self.soup.find(attrs={"aria-label": "Powierzchnia"})))
+        legal_status = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Forma własności"}))
+        rooms = self.tr.rooms(self.tr.clean_text(self.soup.find(attrs={"aria-label": "Liczba pokoi"})))
+        condition = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Stan wykończenia"}))
+        level = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Piętro"}))
+        balcony = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Balkon / ogród / taras"}))
+        rent = self.tr.rent(self.tr.clean_text(self.soup.find(attrs={"aria-label": "Czynsz"})))
+        parking = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Miejsce parkingowey"}))
+        heating = self.tr.clean_text(self.soup.find(attrs={"aria-label": "Ogrzewanie"}))
+        province = row[1]
         try:
-            city, district, street = self.tr.localisation(row[24], row[25], row[26])
+            city, district, street = self.tr.localisation(row[2], row[3], row[4])
         except IndexError:
             try:
-                city, district, street = self.tr.localisation(row[24], row[25])
+                city, district, street = self.tr.localisation(row[2], row[3])
             except IndexError:
-                city, district, street = self.tr.localisation(row[24])
+                city, district, street = self.tr.localisation(row[2])
 
         query = "INSERT INTO Houses(Cena, Powierzchnia, Województwo, Miasto, Osiedle, Ulica, Rynek,\
         Typ_ogłoszeniodawcy, Rok_budowy, Typ_budynku, Okna, Winda, Media, Zabezpieczenia, Wyposażenie,\
         Informacje_dodatkowe, Materiał_budynku, Stan_prawny, Liczba_pokoi, Stan_wykończenia,\
         Piętro, Balkon_taras, Czynsz, Parking, Ogrzewanie, Link)\
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        self.con.execute(query, (price, area, province, city, district, street, market,
-                                 advertiser, year_built, estate_type, windows, lift, utilities, security,
-                                 furnishing, other_info, material, legal_status, rooms,
+        self.con.execute(query, (price, area, province, city, district, street, market, \
+                                 advertiser, year_built, estate_type, windows, lift, utilities, security, \
+                                 furnishing, other_info, material, legal_status, rooms, \
                                  condition, level, balcony, rent, parking, heating, link))
 
     def show_houses(self):

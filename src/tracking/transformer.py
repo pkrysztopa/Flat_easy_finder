@@ -5,14 +5,6 @@ class Transformer:
         else:
             return float(expr.text.replace('zł', '').replace(' ', ''))
 
-    def clean_soup(self, expr):
-        data = expr.get_text("/*").split('/*')[1].strip()
-        if data == 'brak informacji' or data == 'Zapytaj' or data == 'Zapytaj o cenę':
-            data = None
-            return data
-        else:
-            return data
-
     def year_built(self, expr):
         if expr != None:
             return int(expr)
@@ -59,3 +51,13 @@ class Transformer:
                 district = elem
 
         return city, district, street
+
+    def clean_text(self, expr):
+        if expr == None:
+            return None
+        else:
+            data = expr.get_text("/*").split('/*')[1].strip()
+            if data == 'brak informacji' or data == 'Zapytaj' or data == 'Zapytaj o cenę':
+                return None
+            else:
+                return data
