@@ -3,15 +3,14 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
-from scrapper import Estates_DB
+from src.tracking.scrapper import Estates_DB
 
 
 class WebCrawler:
 
     def __init__(self):
         self.links = set()
-
-    def get_first_url(self):
+        self.db = Estates_DB('houses.db')
         self.url = 'https://www.otodom.pl/pl/oferty/sprzedaz/mieszkanie/cala-polska?page=1&limit=72&by=LATEST&direction=DESC'
         self.page_no = 1
 
@@ -23,6 +22,7 @@ class WebCrawler:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--headless")
         chrome_driver = os.getcwd() + "\\chromedriver.exe"
+
         self.driver = webdriver.Chrome(options=chrome_options, executable_path=chrome_driver)
         self.driver.get(self.url)
 
@@ -40,6 +40,12 @@ class WebCrawler:
             link = elem.get_attribute("href")
             if link.startswith('https://www.otodom.pl/pl/oferta/'):
                 self.links.add(link)
+
+    def upload_data(self):
+        with self.db as db:
+            db.create_table()
+            for link in self.links:
+                db.add_estate(link)
 
     def close_connection(self):
         self.driver.quit()

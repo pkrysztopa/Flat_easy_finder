@@ -1,4 +1,4 @@
-from transformer import Transformer
+from src.tracking.transformer import Transformer
 import sqlite3
 import requests
 from bs4 import BeautifulSoup

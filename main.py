@@ -1,8 +1,13 @@
 from bs4 import BeautifulSoup
 import lxml
 import requests
+from src.tracking.crawler import WebCrawler
 
-response = requests.get("https://www.otodom.pl/pl/oferta/dom-premium-120-m2-w-zabudowie-blizniaczej-wawer-ID4hQm3")
-
-soup = BeautifulSoup(response.text, "html.parser")
-soup.find_al
+web = WebCrawler()
+web.get_first_url()
+web.make_connection()
+web.scroll_down()
+web.get_links()
+web.close_connection()
+web.upload_data()
+web.get_next_url()

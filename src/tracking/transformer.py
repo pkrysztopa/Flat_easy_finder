@@ -1,9 +1,10 @@
 class Transformer:
     def price(self, expr):
-        if expr == 'brak informacji' or expr == 'Zapytaj' or expr == 'Zapytaj o cenę':
-            expr = None
+        data = expr.text
+        if data == 'brak informacji' or data == 'Zapytaj' or data == 'Zapytaj o cenę':
+            data = None
         else:
-            return float(expr.text.replace('zł', '').replace(' ', ''))
+            return float(data.replace('zł', '').replace(' ', '').replace(',','.'))
 
     def year_built(self, expr):
         if expr != None:
