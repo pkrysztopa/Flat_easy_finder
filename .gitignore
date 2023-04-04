@@ -1,0 +1,4 @@
+.idea/
+**/chromedriver.exe
+**/houses.db
+**LICENSE.chromedriver
