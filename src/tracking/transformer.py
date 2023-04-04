@@ -1,5 +1,4 @@
 class Transformer:
-
     def clean_price(self, expr):
         data = expr.text
         if data == "brak informacji" or data == "Zapytaj" or data == "Zapytaj o cenę":
@@ -35,7 +34,7 @@ class Transformer:
             else:
                 return float(data.split(" ")[0].replace(",", "."))
 
-    def localize(self,loc_list):
+    def localize(self, loc_list):
         city = None
         district = None
         street = None
@@ -88,6 +87,8 @@ class Transformer:
         flat.rent = self.clean_integer(flat.rent)
         flat.parking = self.clean_string(flat.parking)
         flat.heating = self.clean_string(flat.heating)
-        flat.city, flat.district, flat.street, flat.province = self.localize(flat.loc_list)
+        flat.city, flat.district, flat.street, flat.province = self.localize(
+            flat.loc_list
+        )
 
         return flat
