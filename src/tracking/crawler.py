@@ -1,55 +1,6 @@
-from bs4 import BeautifulSoup
-import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
-
-"""
-FlatEasyFinder
-fields:
-  - self.web_scraper
-      - class web crawler (fetch links)
-      - class web processor (everything connectec with soap)
-  - self.transformer
-  - self.db_handler
-methods:
-  - run <--scraped data-- web_crawler.start() ---> self.fetch_links() ----> self.web_processor.process(links))
-  
-  
-class FlatEasyFinder:
-    def __init__(self):
-       self.web_scraper = WebScraper()
-       self.transfomer = Transfomer()
-       self.db_handler = DBHandler()
-       
-    def start(self):
-       data = self.web_scraper.scrape()
-       prepared_flat_details = self.tansformer.transform(data)
-       self.db_handler.save(prepared_flat_details)
-
-class WebScraper:
-   def __init__(self):
-       self.web_crawler = WebCrawler()
-       self.web_processor = WebProcessor()
-       
-   def scrape(self):
-       links = self.web_crawler.fetch_links(...)
-       data = self.web_processor(links) 
-       return data
-     
-@dataclass  
-class FlatDetails:
-   price: int = None
-   year_built: str      
-     
-      
-class Transformer:
-  def transform(self, data) -> FlatDetails:
-     ...
-     flat_details = FlatDetails(...)
-     return flat_details
-
-"""
 
 
 class WebCrawler:
