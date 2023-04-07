@@ -33,7 +33,7 @@ class DBHandler:
         Czynsz NUMERIC,\
         Parking TEXT,\
         Ogrzewanie TEXT,\
-        Link TEXT);"
+        Link TEXT UNIQUE);"
 
         self.con.execute(query)
 
@@ -76,10 +76,10 @@ class DBHandler:
             ),
         )
 
-    def show_houses(self):
+    def get_all_data(self):
         query = "SELECT * FROM Houses"
         results = self.con.execute(query).fetchall()
-        print(results)
+        return results
 
     def __enter__(self):
         return self

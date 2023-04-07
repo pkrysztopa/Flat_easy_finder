@@ -54,3 +54,4 @@ class WebCrawler:
             self.scroll_down()
             self.get_links()
             self.close_connection()
+            self.get_next_url()

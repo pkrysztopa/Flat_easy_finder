@@ -20,3 +20,4 @@ class FlatEasyFinder:
                 self.processor.scrap_oto(link)
                 flat = self.transformer.transform_oto(flat)
                 self.db_handler.save_to_db(flat)
+

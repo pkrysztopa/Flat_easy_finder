@@ -1,38 +1,36 @@
 class Transformer:
-    def clean_price(self, expr):
-        data = expr.text
-        if data == "brak informacji" or data == "Zapytaj" or data == "Zapytaj o cenę":
-            return None
+
+    def strip_letters(self, expr):
+        if expr is not None:
+            chars = "0123456789.,"
+            output = "".join(char for char in expr if char in chars)
+            if output == '':
+                return None
+            else:
+                return output
         else:
-            return float(data.replace("zł", "").replace(" ", "").replace(",", "."))
+            return None
+
+    def clean_price(self, expr):
+        data = self.strip_letters(expr.text)
+        if data is not None:
+            return float(data.replace(",", "."))
+        else:
+            return None
 
     def clean_integer(self, expr):
-        if expr is None:
-            return None
+        data = self.strip_letters(expr.get_text("/*").split("/*")[1])
+        if data is not None:
+            return int(data)
         else:
-            data = expr.get_text("/*").split("/*")[1].strip()
-            if (
-                data == "brak informacji"
-                or data == "Zapytaj"
-                or data == "Zapytaj o cenę"
-            ):
-                return None
-            else:
-                return int(data.split(" ")[0])
+            return None
 
     def clean_float(self, expr):
-        if expr is None:
-            return None
+        data = self.strip_letters(expr.get_text("/*").split("/*")[1])
+        if data is not None:
+            return float(data.replace(",", "."))
         else:
-            data = expr.get_text("/*").split("/*")[1].strip()
-            if (
-                data == "brak informacji"
-                or data == "Zapytaj"
-                or data == "Zapytaj o cenę"
-            ):
-                return None
-            else:
-                return float(data.split(" ")[0].replace(",", "."))
+            return None
 
     def localize(self, loc_list):
         city = None
@@ -58,6 +56,7 @@ class Transformer:
             data = expr.get_text("/*").split("/*")[1].strip()
             if (
                 data == "brak informacji"
+                or data == "brak"
                 or data == "Zapytaj"
                 or data == "Zapytaj o cenę"
             ):
@@ -84,7 +83,7 @@ class Transformer:
         flat.condition = self.clean_string(flat.condition)
         flat.level = self.clean_string(flat.level)
         flat.balcony = self.clean_string(flat.balcony)
-        flat.rent = self.clean_integer(flat.rent)
+        flat.rent = self.clean_float(flat.rent)
         flat.parking = self.clean_string(flat.parking)
         flat.heating = self.clean_string(flat.heating)
         flat.city, flat.district, flat.street, flat.province = self.localize(
