@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
 from enumeration import MagicData
+import pickle
 
 class WebCrawler:
     def __init__(self):
@@ -45,3 +46,13 @@ class WebCrawler:
             self.get_links()
             self.close_connection()
             self.get_next_url()
+
+    def scrape_links_to_file(self, page_no, file):
+        for i in range(page_no):
+            self.make_connection()
+            self.scroll_down()
+            self.get_links()
+            self.__close_connection()
+            self.get_next_url()
+        with open(file, 'wb') as f:
+            pickle.dump(self.links, f)

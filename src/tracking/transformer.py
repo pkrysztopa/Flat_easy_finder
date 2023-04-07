@@ -51,11 +51,10 @@ class Transformer:
             province = loc_list[1]
         if len(loc_list) == 5:
             street = loc_list[4]
-        if len(loc_list) > 2:
-            if loc_list[2][0].isupper():
-                city = loc_list[2]
-            else:
-                city = loc_list[3]
+        if loc_list[2][0].isupper():
+            city = loc_list[2]
+        else:
+            city = loc_list[3]
         if len(loc_list) > 3 and city == loc_list[2]:
             district = loc_list[3]
 
@@ -95,9 +94,11 @@ class Transformer:
         flat.condition = self.clean_string(flat.condition)
         flat.level = self.clean_string(flat.level)
         flat.balcony = self.clean_string(flat.balcony)
-        flat.rent = self.clean_float(flat.rent)
+        flat.rent = self.clean_integer(flat.rent)
         flat.parking = self.clean_string(flat.parking)
         flat.heating = self.clean_string(flat.heating)
-        flat.city, flat.district, flat.street, flat.province = self.localize(flat.loc_list)
+        flat.city, flat.district, flat.street, flat.province = self.localize(
+            flat.loc_list
+        )
 
         return flat
