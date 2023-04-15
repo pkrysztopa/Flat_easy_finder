@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from src.tracking.flat import Flat
+from decorators import timethis
 
 
 class WebScraper:
@@ -11,6 +12,7 @@ class WebScraper:
     def create_soup(self, link):
         response = requests.get(link)
         self.soup = BeautifulSoup(response.text, "lxml")
+
 
     def scrap_oto(self, link):
 

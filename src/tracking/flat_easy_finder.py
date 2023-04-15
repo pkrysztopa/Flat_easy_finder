@@ -2,6 +2,7 @@ from src.tracking.crawler import WebCrawler
 from src.tracking.scraper import WebScraper
 from src.tracking.transformer import Transformer
 from src.tracking.db_handler import DBHandler
+import pickle
 
 
 class FlatEasyFinder:

@@ -1,6 +1,9 @@
+from enumeration import MagicData
+
+
 class Transformer:
 
-    def strip_letters(self, expr):
+    def __strip_letters(self, expr):
         if expr is not None:
             chars = "0123456789.,"
             output = "".join(char for char in expr if char in chars)
@@ -12,38 +15,47 @@ class Transformer:
             return None
 
     def clean_price(self, expr):
-        data = self.strip_letters(expr.text)
-        if data is not None:
-            return float(data.replace(",", "."))
-        else:
-            return None
+        if expr is not None:
+            data = self.__strip_letters(expr.text)
+            return None if data is None else float(data.replace(",", "."))
+        return None
 
     def clean_integer(self, expr):
-        data = self.strip_letters(expr.get_text("/*").split("/*")[1])
-        if data is not None:
-            return int(data)
-        else:
-            return None
+        if expr is not None:
+            data = self.__strip_letters(expr.get_text("/*").split("/*")[1])
+            return None if data is None else int(data)
+        return None
 
     def clean_float(self, expr):
-        data = self.strip_letters(expr.get_text("/*").split("/*")[1])
-        if data is not None:
-            return float(data.replace(",", "."))
-        else:
-            return None
+        if expr is not None:
+            data = self.__strip_letters(expr.get_text("/*").split("/*")[1])
+            return None if data is None else float(data.replace(",", "."))
+        return None
+
+    def clean_string(self, expr):
+        if expr is not None:
+            data = expr.get_text("/*").split("/*")[1].strip()
+            magic_values = [item.value for item in MagicData]
+            if data.lower() in magic_values:
+                return None
+            return data
+        return None
 
     def localize(self, loc_list):
         city = None
         district = None
         street = None
-        province = loc_list[1]
+        province = None
 
+        if len(loc_list) > 1:
+            province = loc_list[1]
         if len(loc_list) == 5:
             street = loc_list[4]
-        if loc_list[2][0].isupper():
-            city = loc_list[2]
-        else:
-            city = loc_list[3]
+        if len(loc_list) > 2:
+            if loc_list[2][0].isupper():
+                city = loc_list[2]
+            else:
+                city = loc_list[3]
         if len(loc_list) > 3 and city == loc_list[2]:
             district = loc_list[3]
 
@@ -86,8 +98,6 @@ class Transformer:
         flat.rent = self.clean_float(flat.rent)
         flat.parking = self.clean_string(flat.parking)
         flat.heating = self.clean_string(flat.heating)
-        flat.city, flat.district, flat.street, flat.province = self.localize(
-            flat.loc_list
-        )
+        flat.city, flat.district, flat.street, flat.province = self.localize(flat.loc_list)
 
         return flat
