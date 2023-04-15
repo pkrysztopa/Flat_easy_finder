@@ -1,9 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
-import pickle
 from enumeration import MagicData
-
 
 class WebCrawler:
     def __init__(self):
@@ -34,7 +32,7 @@ class WebCrawler:
         elems = self.driver.find_elements(By.XPATH, "//a[@href]")
         for elem in elems:
             link = elem.get_attribute("href")
-            if link.startswith(f"{MagicData.STARTS_WITH.value}"):
+            if link.startswith(MagicData.STARTS_WITH):
                 self.links.add(link)
 
     def close_connection(self):
@@ -47,13 +45,3 @@ class WebCrawler:
             self.get_links()
             self.close_connection()
             self.get_next_url()
-
-    def scrape_links_to_file(self, page_no, file):
-        for i in range(page_no):
-            self.make_connection()
-            self.scroll_down()
-            self.get_links()
-            self.__close_connection()
-            self.get_next_url()
-        with open(file, 'wb') as f:
-            pickle.dump(self.links, f)

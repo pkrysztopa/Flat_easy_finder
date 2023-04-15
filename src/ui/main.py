@@ -15,10 +15,11 @@ def index():
     data = db.fetch_all_data()
     if request.method == 'GET':
         rows_per_page = int(request.args.get('custom_rows_per_page',10))
-        html_generator = HtmlGenerator(db.cursor, data, rows_per_page)
+        page = int(request.args.get('page', 1))
+        html_generator = HtmlGenerator(db.cursor, data, rows_per_page, page)
         html_data = html_generator.generate_table()
         return render_template('index.html', html_data=html_data)
-    html_generator = HtmlGenerator(db.cursor,data,10)
+    html_generator = HtmlGenerator(db.cursor, data, 10, 1)
     html_data = html_generator.generate_table()
     return render_template('index.html', html_data=html_data)
 
