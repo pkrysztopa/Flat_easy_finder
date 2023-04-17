@@ -83,8 +83,12 @@ class DBHandler:
         results = self.cursor.execute(query).fetchall()
         return results
 
-    def fetch_data(self, limit):
-        query = f"SELECT * FROM Houses LIMIT {limit}"
+    def fetch_data(self, columns=None):
+        if not columns:
+            query = "SELECT * FROM Houses"
+        else:
+            column_names = ', '.join(columns)
+            query = f"SELECT {column_names} FROM Houses"
         results = self.cursor.execute(query).fetchall()
         return results
 
