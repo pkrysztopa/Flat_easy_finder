@@ -13,6 +13,15 @@ class HtmlGenerator:
         html_data += '</form>'
 
         html_data += '<form method="GET" action="/">'
+        html_data += '<label for="column_sort">Sortuj wg kolumny:</label>'
+        html_data += '<select id="column_asc" name="col_asc">'
+        for desc in self.cursor.description:
+            column_name = desc[0]
+            selected = 'selected' if columns is not None and column_name in columns else ''
+            html_data += '<option value="{}" {}>{}</option>'.format(column_name, selected, column_name)
+        html_data += '</select>'
+
+        html_data += '<form method="GET" action="/">'
         html_data += '<table style="border-collapse: collapse; width: 100%;">\n'
         html_data += '<tr style="border: 1px solid black;">'
         for desc in self.cursor.description:

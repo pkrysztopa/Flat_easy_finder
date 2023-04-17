@@ -83,12 +83,15 @@ class DBHandler:
         results = self.cursor.execute(query).fetchall()
         return results
 
-    def fetch_data(self, columns=None):
+    def fetch_data(self, columns=None, col_asc=None, asc=True):
         if not columns:
             query = "SELECT * FROM Houses"
         else:
             column_names = ', '.join(columns)
             query = f"SELECT {column_names} FROM Houses"
+        if col_asc is not None:
+            sort_order = "ASC" if asc else "DESC"
+            query += f" ORDER BY {col_asc} {sort_order}"
         results = self.cursor.execute(query).fetchall()
         return results
 
