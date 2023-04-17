@@ -2,3 +2,6 @@
 **/chromedriver.exe
 **/houses.db
 **LICENSE.chromedriver
+/src/tracking/links.txt
+/src/tracking/mieszkania.txt
+/src/tracking/enumeration.py

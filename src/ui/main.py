@@ -1,16 +1,24 @@
-from flask import render_template, redirect, url_for, Blueprint, request, session, flash ### 0
+from flask import Flask, render_template, redirect, url_for, Blueprint, request, session
+from src.ui.html_generator import HtmlGenerator
+from src.tracking.db_handler import DBHandler
+from os.path import join, dirname, abspath
 
-show_table = Blueprint("login", __name__)
+db_path = join(dirname(dirname(abspath(__file__))), 'tracking/houses.db')
 
+app = Flask(__name__)
 
-@show_table.route('/', methods=["POST", "GET"])
-def login():
-    if request.method == "POST":
-        session.update({"nick" : request.form['nickname']})
-        flash("You've been successfully logged in.") ### 1
-    elif request.method == "GET" and "nick" not in session:
-        return render_template("login.html")
-    elif request.method == "GET" and "nick" in session: ### 2
-        flash("Already logged in!") ### 2.1
-    return redirect(url_for("dashboard.dashboard"))
-
+@app.route('/', methods=['GET'])
+def index():
+    db = DBHandler(db_path)
+    if request.method == 'GET':
+        rows_per_page = int(request.args.get('custom_rows_per_page',10))
+        page = int(request.args.get('page', 1))
+        columns = request.args.getlist('columns')
+        data = db.fetch_data(columns)
+        html_generator = HtmlGenerator(db.cursor, data, rows_per_page, page)
+        html_data = html_generator.generate_table(columns)
+        return render_template('index.html', html_data=html_data)
+    data = db.fetch_all_data()
+    html_generator = HtmlGenerator(db.cursor, data, 10, 1)
+    html_data = html_generator.generate_table()
+    return render_template('index.html', html_data=html_data)

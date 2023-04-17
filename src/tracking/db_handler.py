@@ -3,7 +3,9 @@ import sqlite3
 
 class DBHandler:
     def __init__(self, path):
-        self.con = sqlite3.connect(path)
+        self.path = path
+        self.con = sqlite3.connect(self.path)
+        self.cursor = self.con.cursor()
 
     def create_table(self):
         query = "CREATE TABLE IF NOT EXISTS Houses(\
@@ -39,7 +41,7 @@ class DBHandler:
 
     def save_to_db(self, flat):
 
-        query = "INSERT INTO Houses(Cena, Powierzchnia, Województwo, Miasto, Osiedle, Ulica, Rynek,\
+        query = "INSERT OR IGNORE INTO Houses(Cena, Powierzchnia, Województwo, Miasto, Osiedle, Ulica, Rynek,\
         Typ_ogłoszeniodawcy, Rok_budowy, Typ_budynku, Okna, Winda, Media, Zabezpieczenia, Wyposażenie,\
         Informacje_dodatkowe, Materiał_budynku, Stan_prawny, Liczba_pokoi, Stan_wykończenia,\
         Piętro, Balkon_taras, Czynsz, Parking, Ogrzewanie, Link)\
@@ -76,9 +78,18 @@ class DBHandler:
             ),
         )
 
-    def get_all_data(self):
+    def fetch_all_data(self):
         query = "SELECT * FROM Houses"
-        results = self.con.execute(query).fetchall()
+        results = self.cursor.execute(query).fetchall()
+        return results
+
+    def fetch_data(self, columns=None):
+        if not columns:
+            query = "SELECT * FROM Houses"
+        else:
+            column_names = ', '.join(columns)
+            query = f"SELECT {column_names} FROM Houses"
+        results = self.cursor.execute(query).fetchall()
         return results
 
     def __enter__(self):
