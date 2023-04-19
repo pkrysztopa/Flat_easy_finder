@@ -29,7 +29,7 @@ class HtmlGenerator:
             column_name = desc[0]
             checked = 'checked' if columns is None or column_name in columns else ''
             html_data += '<th style="border: 1px solid black; padding: 5px;">'
-            html_data += '<label for="{}"><input type="hidden" id="{}" name="columns" value="{}" {}> {}</label>'.format(column_name, column_name, column_name, checked, column_name)
+            html_data += '<label for="{}"><input type="checkbox" id="{}" name="columns" value="{}" {}> {}</label>'.format(column_name, column_name, column_name, checked, column_name)
             html_data += '</th>'
         html_data += '</tr>\n'
         html_data += '<input type="submit" value="Zastosuj">'
