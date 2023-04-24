@@ -1,3 +1,4 @@
+from flask import request
 class HtmlGenerator:
     def __init__(self, cursor, data, rows_per_page, page):
         self.cursor = cursor
@@ -10,7 +11,13 @@ class HtmlGenerator:
         html_data += '<label for="rows_per_page">Liczba rekordów na stronie:</label>'
         html_data += '<input type="text" id="rows_per_page" name="rows_per_page" placeholder="Wpisz własną wartość" value="{}">'.format(self.rows_per_page)
 
-        html_data += '<label for="column_asc">Sortuj wg kolumny:</label>'
+        html_data += '<label for="sort_order">Sortuj</label>'
+        html_data += '<select id="sort_order" name="sort_order">'
+        html_data += '<option value="ASC" {}>Rosnąco</option>'.format('selected' if request.args.get('sort_order') == 'ASC' else '')
+        html_data += '<option value="DESC" {}>Malejąco</option>'.format('selected' if request.args.get('sort_order') == 'DESC' else '')
+        html_data += '</select>'
+
+        html_data += '<label for="column_asc">wg kolumny:</label>'
         html_data += '<select id="column_asc" name="col_asc">'
         for desc in self.cursor.description:
             column_name = desc[0]
