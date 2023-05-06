@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
-from enumeration import MagicData
+from src.tracking.enumeration import MagicData
 import pickle
 
 class WebCrawler:
@@ -23,6 +23,7 @@ class WebCrawler:
             options=chrome_options, executable_path=chrome_driver
         )
         self.driver.get(self.url)
+        # asset called with metoda ("--headless")
 
     def __scroll_down(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -36,6 +37,7 @@ class WebCrawler:
 
     def __close_connection(self):
         self.driver.quit()
+        # assert called with sprawdzamy czy została wywołana metoda quit
 
     def scrape_links(self, page_no):
         for i in range(page_no):

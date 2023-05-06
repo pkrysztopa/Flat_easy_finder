@@ -1,4 +1,4 @@
-from enumeration import MagicData
+from src.tracking.enumeration import MagicData
 
 
 class Transformer:
@@ -64,12 +64,10 @@ class Transformer:
         if expr is None:
             return None
         else:
-            data = expr.get_text("/*").split("/*")[1].strip()
+            data = expr.get_text("/*").split("/*")[1].strip().lower()
             if (
-                data == "brak informacji"
-                or data == "brak"
-                or data == "Zapytaj"
-                or data == "Zapytaj o cenę"
+                data == "brak"
+                or data == "zapytaj"
             ):
                 return None
             else:
@@ -94,7 +92,7 @@ class Transformer:
         flat.condition = self.clean_string(flat.condition)
         flat.level = self.clean_string(flat.level)
         flat.balcony = self.clean_string(flat.balcony)
-        flat.rent = self.clean_integer(flat.rent)
+        flat.rent = self.clean_float(flat.rent)
         flat.parking = self.clean_string(flat.parking)
         flat.heating = self.clean_string(flat.heating)
         flat.city, flat.district, flat.street, flat.province = self.localize(

@@ -78,11 +78,6 @@ class DBHandler:
                 ),
             )
 
-    def fetch_all_data(self):
-        query = "SELECT * FROM Houses"
-        results = self.cursor.execute(query).fetchall()
-        return results
-
     def fetch_data(self, columns=None, col_asc=None, sort_order='ASC'):
         if not columns:
             query = "SELECT * FROM Houses"
