@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, Blueprint, request, session
+from flask import Flask, render_template, request
 from src.ui.html_generator import HtmlGenerator
 from src.tracking.db_handler import DBHandler
 from os.path import join, dirname, abspath
