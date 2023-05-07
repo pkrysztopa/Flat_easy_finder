@@ -44,3 +44,6 @@ All these objects are connected by <b>FlatEasyFinder</b> object, which is respon
 Gathered data is then presented to the user by module <b>ui</b>, which is responsible for the graphical interface of the application.
 Tables are generated, by HtmlGenerator object, which is responsible for generating html code for tables.
 </details>
+
+## Application view
+<img src = "https://user-images.githubusercontent.com/99322740/236673457-5fead167-821a-4740-a85e-7663adb6b3ac.JPG"></img>
