@@ -1,5 +1,4 @@
 import unittest
-from src.tracking.enumeration import MagicData
 from src.tracking.transformer import Transformer
 from unittest.mock import MagicMock
 from bs4 import BeautifulSoup

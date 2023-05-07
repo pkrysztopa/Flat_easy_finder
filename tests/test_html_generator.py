@@ -1,8 +1,6 @@
 import unittest
-from unittest.mock import MagicMock
 from src.ui.html_generator import HtmlGenerator
-from src.tracking.flat import Flat
-from src.tracking.enumeration import MagicData
+
 class TestHtmlGenerator(unittest.TestCase):
 
     def setUp(self):
@@ -12,9 +10,9 @@ class TestHtmlGenerator(unittest.TestCase):
         page = 1
         self.generator = HtmlGenerator(cursor, data, rows_per_page, page)
 
+    # TODO: test for generate_table
     def test_html_generator(self):
 
-        # Test generate_table method
         table_html = self.generator.generate_table(columns=['id', 'Cena'])
         assert 'Liczba rekordów na stronie:' in table_html
         assert 'wg kolumny:' in table_html
@@ -26,6 +24,5 @@ class TestHtmlGenerator(unittest.TestCase):
         assert '<tr style="border: 1px solid black;">' in table_html
         assert '<th style="border: 1px solid black; padding: 5px;">' in table_html
 
-        # Test page navigation buttons
         assert '<input type="submit" value="Poprzednia strona">' in table_html
         assert '<input type="submit" value="Następna strona">' in table_html

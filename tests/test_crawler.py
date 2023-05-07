@@ -3,7 +3,6 @@ from unittest.mock import MagicMock
 from src.tracking.crawler import WebCrawler
 from src.tracking.enumeration import MagicData
 import pickle
-import os
 from selenium import webdriver
 
 
