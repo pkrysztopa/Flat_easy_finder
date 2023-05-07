@@ -5,3 +5,4 @@
 /src/tracking/links.txt
 /src/tracking/mieszkania.txt
 /src/tracking/enumeration.py
+/tests/test_links.db

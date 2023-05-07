@@ -40,55 +40,52 @@ class DBHandler:
         self.con.execute(query)
 
     def save_to_db(self, flat):
+        if flat.price and flat.area:
+            query = "INSERT OR IGNORE INTO Houses(Cena, Powierzchnia, Województwo, Miasto, Osiedle, Ulica, Rynek,\
+            Typ_ogłoszeniodawcy, Rok_budowy, Typ_budynku, Okna, Winda, Media, Zabezpieczenia, Wyposażenie,\
+            Informacje_dodatkowe, Materiał_budynku, Stan_prawny, Liczba_pokoi, Stan_wykończenia,\
+            Piętro, Balkon_taras, Czynsz, Parking, Ogrzewanie, Link)\
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            self.con.execute(
+                query,
+                (
+                    flat.price,
+                    flat.area,
+                    flat.province,
+                    flat.city,
+                    flat.district,
+                    flat.street,
+                    flat.market,
+                    flat.advertiser,
+                    flat.year_built,
+                    flat.estate_type,
+                    flat.windows,
+                    flat.lift,
+                    flat.utilities,
+                    flat.security,
+                    flat.furnishing,
+                    flat.other_info,
+                    flat.material,
+                    flat.legal_status,
+                    flat.rooms,
+                    flat.condition,
+                    flat.level,
+                    flat.balcony,
+                    flat.rent,
+                    flat.parking,
+                    flat.heating,
+                    flat.link,
+                ),
+            )
 
-        query = "INSERT OR IGNORE INTO Houses(Cena, Powierzchnia, Województwo, Miasto, Osiedle, Ulica, Rynek,\
-        Typ_ogłoszeniodawcy, Rok_budowy, Typ_budynku, Okna, Winda, Media, Zabezpieczenia, Wyposażenie,\
-        Informacje_dodatkowe, Materiał_budynku, Stan_prawny, Liczba_pokoi, Stan_wykończenia,\
-        Piętro, Balkon_taras, Czynsz, Parking, Ogrzewanie, Link)\
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        self.con.execute(
-            query,
-            (
-                flat.price,
-                flat.area,
-                flat.province,
-                flat.city,
-                flat.district,
-                flat.street,
-                flat.market,
-                flat.advertiser,
-                flat.year_built,
-                flat.estate_type,
-                flat.windows,
-                flat.lift,
-                flat.utilities,
-                flat.security,
-                flat.furnishing,
-                flat.other_info,
-                flat.material,
-                flat.legal_status,
-                flat.rooms,
-                flat.condition,
-                flat.level,
-                flat.balcony,
-                flat.rent,
-                flat.parking,
-                flat.heating,
-                flat.link,
-            ),
-        )
-
-    def fetch_all_data(self):
-        query = "SELECT * FROM Houses"
-        results = self.cursor.execute(query).fetchall()
-        return results
-
-    def fetch_data(self, columns=None):
+    def fetch_data(self, columns=None, col_asc=None, sort_order='ASC'):
         if not columns:
             query = "SELECT * FROM Houses"
         else:
             column_names = ', '.join(columns)
             query = f"SELECT {column_names} FROM Houses"
+        if col_asc is not None:
+            query += f" ORDER BY {col_asc} {sort_order}"
         results = self.cursor.execute(query).fetchall()
         return results
 

@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from src.tracking.flat import Flat
-from decorators import timethis
 
 
 class WebScraper:
@@ -51,3 +50,4 @@ class WebScraper:
         self.flat.parking = self.soup.find(attrs={"aria-label": "Miejsce parkingowe"})
         self.flat.heating = self.soup.find(attrs={"aria-label": "Ogrzewanie"})
         self.flat.link = link
+
