@@ -23,7 +23,6 @@ class WebCrawler:
             options=chrome_options, executable_path=chrome_driver
         )
         self.driver.get(self.url)
-        # asset called with metoda ("--headless")
 
     def __scroll_down(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")

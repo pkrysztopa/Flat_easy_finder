@@ -78,12 +78,14 @@ class DBHandler:
                 ),
             )
 
-    def fetch_data(self, columns=None, col_asc=None, sort_order='ASC'):
+    def fetch_data(self, columns=None, col_asc=None, sort_order='ASC', filter_column=None, filter_value=None):
         if not columns:
             query = "SELECT * FROM Houses"
         else:
             column_names = ', '.join(columns)
             query = f"SELECT {column_names} FROM Houses"
+        if filter_column and filter_value:
+            query += f" WHERE {filter_column} LIKE '%{filter_value}%'"
         if col_asc is not None:
             query += f" ORDER BY {col_asc} {sort_order}"
         results = self.cursor.execute(query).fetchall()

@@ -25,12 +25,14 @@ That makes this application a great tool for people who are looking for a flat f
 ## Setup
 Clone the repo
 ```git clone https://github.com/pkrysztopa/Flat_easy_finder```
-Download chromedriver from https://chromedriver.chromium.org/downloads and put it in the src/tracking folder.
+Download chromedriver from https://chromedriver.chromium.org/downloads and put it in the main folder.
 Install all dependencies
 ```pip install sqlite3``` ```pip install selenium``` ```pip install BeautifulSoup``` ```pip install Flask```
 Run the application
 ```python run.py```
 Open your browser and go http://127.0.0.1:5000 or http://192.168.0.66:5000
+Under the "Zgraj dane" text is a field where you can put a number of webpages which you want to scrap (one page has about 72 apartment announcements).
+After this you can use filters to browse the data you want.
 
 ## More detailed information about modules
 <details>

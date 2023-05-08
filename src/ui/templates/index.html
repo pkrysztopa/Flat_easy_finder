@@ -6,5 +6,11 @@
 <body>
 	<h1>Dane z bazy danych:</h1>
 	{{ html_data | safe}}
+    <h2>Zgraj dane</h2>
+    <form method="POST" action="/">
+        <label for="page_no">Liczba stron:</label>
+        <input type="text" id="page_no" name="page_no" placeholder="Wpisz liczbę stron">
+        <button type="submit">Pobierz dane z otodom.pl</button>
+    </form>
 </body>
 </html>
