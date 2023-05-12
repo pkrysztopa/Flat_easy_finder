@@ -32,7 +32,7 @@ Run the application
 ```python run.py```
 Open your browser and go http://127.0.0.1:5000 or http://192.168.0.66:5000
 Under the "Zgraj dane" text is a field where you can put a number of webpages which you want to scrap (one page has about 72 apartment announcements).
-After this you can use filters to browse the data you want.
+After this you can browse the data and use filters to collect the data you want.
 
 ## More detailed information about modules
 <details>
