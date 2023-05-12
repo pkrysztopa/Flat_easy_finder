@@ -48,4 +48,4 @@ Tables are generated, by HtmlGenerator object, which is responsible for generati
 </details>
 
 ## Application view
-<img src = "https://user-images.githubusercontent.com/99322740/236673457-5fead167-821a-4740-a85e-7663adb6b3ac.JPG"></img>
+<img src = "(https://github.com/pkrysztopa/Flat_easy_finder/assets/99322740/728cc34b-d823-4c47-909b-f8893e4cba64)"></img>
