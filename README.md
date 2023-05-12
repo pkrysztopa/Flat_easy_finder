@@ -8,7 +8,7 @@
 <details>
 <summary>Click here to see general information about <b>Flat easy finder</b>!</summary>
 <b>Flat easy finder</b> is an application designed to search for a flat in a simple and easy way. 
-Looking through the offers on the Internet can be very time-consuming, so intention of this application is to speed up this process, and to give tools for data collection for data analysis. The application gives user the opportunity to search for a flat with flexible filters and sorting options without having to visit many websites.
+Looking through the offers on the Internet can be very time-consuming, so intention of this application is to speed up this process, and to give tools for data collection and data analysis. The application gives user the opportunity to search for a flat with flexible filters and sorting options without having to visit many websites.
 That makes this application a good tool for people who are looking for a flat for themselves, as well as for people who are looking for investment opportunities.
 </details>
 
