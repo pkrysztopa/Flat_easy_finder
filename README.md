@@ -45,6 +45,8 @@ Transformed data is then saved in the database by <b>DBHandler</b> object. This 
 All these objects are connected by <b>FlatEasyFinder</b> object, which is responsible for the flow of the application.
 Gathered data is then presented to the user by module <b>ui</b>, which is responsible for the graphical interface of the application.
 Tables are generated, by HtmlGenerator object, which is responsible for generating html code for tables.
+ 
+<img src = "https://github.com/pkrysztopa/Flat_easy_finder/assets/99322740/df8edce2-9ea3-4aed-8475-0dc353abb49d"></img>
 </details>
 
 ## Application view
