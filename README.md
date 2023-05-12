@@ -48,4 +48,4 @@ Tables are generated, by HtmlGenerator object, which is responsible for generati
 </details>
 
 ## Application view
-<img src = "[(https://github.com/pkrysztopa/Flat_easy_finder/assets/99322740/728cc34b-d823-4c47-909b-f8893e4cba64)](https://private-user-images.githubusercontent.com/99322740/237950858-728cc34b-d823-4c47-909b-f8893e4cba64.JPG?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJrZXkxIiwiZXhwIjoxNjgzODg5MTQ4LCJuYmYiOjE2ODM4ODg4NDgsInBhdGgiOiIvOTkzMjI3NDAvMjM3OTUwODU4LTcyOGNjMzRiLWQ4MjMtNGM0Ny05MDliLWY4ODkzZTRjYmE2NC5KUEc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMwNTEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMDUxMlQxMDU0MDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00YjE2MzEyZWZjNDQwOTE2MmYxMDU0N2VhOTc3YTQ3YjUwNTk2ZWNmZDJkYjNlMGRjYTA1ZGRhMmE3ZmFhZjlkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.3gqBasaIuKi-4gXWQADImVrQJ_-M6JS9Gm5t6OVzCBI)"></img>
+<img src = "(https://github.com/pkrysztopa/Flat_easy_finder/issues/8)"></img>
