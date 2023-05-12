@@ -1,4 +1,5 @@
 from flask import request
+
 class HtmlGenerator:
     def __init__(self, cursor, data, rows_per_page, page):
         self.cursor = cursor
@@ -21,14 +22,16 @@ class HtmlGenerator:
         html_data += '<select id="column_asc" name="col_asc">'
         for desc in self.cursor.description:
             column_name = desc[0]
-            html_data += '<option value="{}" {}>{}</option>'.format(column_name, col_asc, column_name)
+            selected = 'selected' if columns is not None and column_name in columns else ''
+            html_data += '<option value="{}" {}>{}</option>'.format(column_name, selected, column_name)
         html_data += '</select>'
 
         html_data += '<br><br><label for="filter_column">Filtruj wg kolumny:</label>'
         html_data += '<select id="filter_column" name="filter_column">'
         for desc in self.cursor.description:
             column_name = desc[0]
-            html_data += '<option value="{}" {}>{}</option>'.format(column_name, filter_column, column_name)
+            selected = 'selected' if columns is not None and column_name in columns else ''
+            html_data += '<option value="{}" {}>{}</option>'.format(column_name, selected, column_name)
         html_data += '</select>'
         html_data += '<label for="filter_value">Wartość filtra:</label>'
         html_data += '<input type="text" id="filter_value" name="filter_value" placeholder="Wpisz wartość filtra">'
