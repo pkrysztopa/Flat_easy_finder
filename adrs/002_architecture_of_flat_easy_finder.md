@@ -11,7 +11,7 @@ At the design stage of the application, functional separation of individual part
 Code of application is divided in 3 main functional groups. First one in tracking package and consist all the backend code used for collecting, transforming and data analysis.
 Second one is in ui package and is about frontend and communication with a user. In the diagram below you can see the structure of the application.
 
-<img src = "https://github.com/pkrysztopa/Flat_easy_finder/assets/99322740/df8edce2-9ea3-4aed-8475-0dc353abb49d"></img>
+<img src = "https://github.com/pkrysztopa/Flat_easy_finder/issues/9#issue-1707415177"></img>
 
 
 ## Consequences
