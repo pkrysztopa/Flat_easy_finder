@@ -60,18 +60,6 @@ class Transformer:
 
         return city, district, street, province
 
-    def clean_string(self, expr):
-        if expr is None:
-            return None
-        else:
-            data = expr.get_text("/*").split("/*")[1].strip().lower()
-            if (
-                data == "brak"
-                or data == "zapytaj"
-            ):
-                return None
-            else:
-                return data
 
     def transform_oto(self, flat):
         flat.price = self.clean_price(flat.price)

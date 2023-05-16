@@ -1,3 +1,0 @@
-# TODO test for FlatEasyFinder
-
-
