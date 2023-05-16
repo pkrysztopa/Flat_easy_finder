@@ -20,7 +20,7 @@ def index():
     filter_value = request.args.get('filter_value')
     data = db.fetch_data(columns, col_asc, sort_order, filter_column, filter_value)
     html_generator = HtmlGenerator(db.cursor, data, rows_per_page, page)
-    html_data = html_generator.generate_table(columns)
+    html_data = html_generator.generate_table(sort_order, columns, col_asc, filter_column)
     if request.method == 'POST':
         page_no = int(request.form['page_no'])
         flat_finder = FlatEasyFinder()
