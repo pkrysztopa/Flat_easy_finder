@@ -32,7 +32,7 @@ That makes this application a good tool for people who are looking for a flat fo
 5. Open your browser and go http://127.0.0.1:5000 or http://192.168.0.66:5000
 6. Under the "Zgraj dane" text is a field where you can put a number of webpages which you want to scrap (one page has about 72 apartment announcements).
 7. After this you can browse the data and use filters to collect the data you want.
-8. You can also download the data in csv format by clicking the "Zgraj dane do csv" button.
+8. You can also have the data in csv format by clicking the "Zgraj dane do csv" button. CSV will be in the main folder.
 
 ## More detailed information about modules
 <details>

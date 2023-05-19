@@ -55,7 +55,7 @@ def index():
 
 
 def save_data_to_csv(data):
-    file_path = join(dirname(dirname(abspath(__file__))), 'tracking/data.csv')
+    file_path = join(dirname(dirname(abspath(__file__))), 'data.csv')
     with open(file_path, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerows(data)
