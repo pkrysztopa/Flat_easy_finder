@@ -36,7 +36,6 @@ class HtmlGenerator:
         html_data += '<label for="filter_value">Wartość filtra:</label>'
         html_data += '<input type="text" id="filter_value" name="filter_value" placeholder="Wpisz wartość filtra">'
 
-        html_data += '<form method="GET" action="/">'
         html_data += '<table style="border-collapse: collapse; width: 100%;">\n'
         html_data += '<tr style="border: 1px solid black;">'
         for desc in self.cursor.description:
@@ -72,5 +71,10 @@ class HtmlGenerator:
             html_data += '<input type="hidden" name="page" value="{}">'.format(next_page)
             html_data += '<input type="submit" value="Następna strona">'
             html_data += '</form>'
+
+        html_data += '<form method="GET" action="/">'
+        html_data += '<input type="hidden" name="save_csv">'
+        html_data += '<input type="submit" value="Zgraj dane do CSV">'
+        html_data += '</form>'
 
         return html_data

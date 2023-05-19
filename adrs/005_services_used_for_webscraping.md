@@ -1,4 +1,4 @@
-# Services used for webscrapping
+# Services used for webscraping
 
 ## Status
 
